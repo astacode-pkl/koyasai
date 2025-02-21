@@ -13,33 +13,15 @@
           <div
             class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0"
           >
-            <div class="hs-carousel-slide">
+            <div v-for="slider in 3" :key="slider" class="hs-carousel-slide">
               <div class="flex justify-center h-full w-full bg-gray-100 relative">
                 <img
-                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fHZlZ2V0YWJsZXxlbnwwfHwwfHx8MA%3D%3D"
+                  src="/assets/img/sayur.png"
                   alt="hero"
-                  class="object-cover brightness-50 w-full"
+                  class="object-cover w-full"
                 />
               </div>
-            </div>
-            <div class="hs-carousel-slide">
-              <div class="flex justify-center h-full w-full bg-gray-200">
-                <img
-                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fHZlZ2V0YWJsZXxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="hero"
-                  class="object-cover w-full brightness-50"
-                />
-              </div>
-            </div>
-            <div class="hs-carousel-slide">
-              <div class="flex justify-center h-full w-full bg-gray-300">
-                <img
-                  src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fHZlZ2V0YWJsZXxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="hero"
-                  class="object-cover w-full brightness-50"
-                />
-              </div>
-            </div>
+            </div>            
           </div>
         </div>
         <button

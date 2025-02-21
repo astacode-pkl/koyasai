@@ -3,7 +3,7 @@
         <!-- ========== HEADER -->
         <header
             ref="headerRef"
-            class="fixed top-0 border-b bg-white border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 h-16 lg:h-20 w-full transition-all duration-300 rounded-b-xl">
+            class="fixed top-0 border-b bg-white border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 h-16 lg:h-20 w-full transition-all duration-300 rounded-b-2xl">
             <nav
                 class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 py-auto sm:px-6 lg:px-8 py-2">
                 <!-- Logo w/ Collapse Button -->
