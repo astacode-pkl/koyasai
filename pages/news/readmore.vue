@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="font-sans">
     <!-- Blog Article -->
     <div
       class="max-w-lg md:max-w-2xl lg:max-w-3xl px-6 pb-12 sm:px-6 lg:px-8 mx-auto mt-24 md:mt-28 lg:mt-32"
