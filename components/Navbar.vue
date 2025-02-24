@@ -9,7 +9,7 @@
                 <!-- Logo w/ Collapse Button -->
                 <div class="flex items-center justify-between">
                     <Nuxt-link class="flex gap-3" to="#" aria-label="Brand">
-                        <img src="/assets/img/logo.png" alt="logo" class="w-14">
+                        <img src="/assets/img/logo.png" alt="logo" class="w-12 md:w-14">
                         <img src="/assets/img/nama.png" alt="nama" class="w-24 h-auto py-3">
                     </Nuxt-link>
                     <!-- Collapse Button -->
@@ -53,17 +53,17 @@
                             </Nuxt-link>
                             <Nuxt-link
                                 class="p-2 flex items-center text-sm text-gray-800 hover:text-primary focus:outline-none focus:text-primary"
-                                to="/" >
+                                to="/about" >
                                 About
                             </Nuxt-link>
                             <Nuxt-link
                                 class="p-2 flex items-center text-sm text-gray-800 hover:text-primary focus:outline-none focus:text-primary"
-                                to="/" >
+                                to="/catalog" >
                                 Catalog
                             </Nuxt-link>
                             <Nuxt-link
                                 class="p-2 flex items-center text-sm text-gray-800 hover:text-primary focus:outline-none focus:text-primary"
-                                to="/" >
+                                to="/gallery" >
                                 Gallery
                             </Nuxt-link>
                             <Nuxt-link
@@ -73,7 +73,7 @@
                             </Nuxt-link>
                             <Nuxt-link
                                 class="p-2 flex items-center text-sm text-gray-800 hover:text-primary focus:outline-none focus:text-primary"
-                                to="/" >
+                                to="/contact" >
                                 Contact
                             </Nuxt-link>
                         </div>
