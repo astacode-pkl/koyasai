@@ -114,7 +114,7 @@ export default {
 </script>
 
 <template>
-    <div class="max-w-7xl">
+    <div class="max-w-7xl mx-auto">
         <div
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mx-4 sm:mx-6 my-8 p-10 bg-white ">
             <div v-for="(product, index) in displayedProducts" :key="product.id" data-aos="fade-up" :data-aos-delay="index * 200"

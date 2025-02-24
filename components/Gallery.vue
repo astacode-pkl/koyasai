@@ -90,7 +90,7 @@ export default {
 </script>
 
 <template>
-  <div class="galeri max-w-7xl">
+  <div class="galeri max-w-7xl mx-auto">
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 items-center mx-3 sm:mx-5 mb-5 p-10 bg-white ">
       <div v-for="(image, index) in displayedImages" :key="image.id" data-aos="fade-up" :data-aos-delay="index * 200"
