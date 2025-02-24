@@ -45,7 +45,7 @@ onMounted(() => {
                     <h1 class="text-white text-4xl font-semibold z-10 text-center">
                         Catalog
                     </h1>
-                    <h4 class="text-white text-base sm:text-lg font-semibold z-10 text-center">
+                    <h4 class="text-white text-base sm:text-lg font-sans z-10 text-center">
                         <nuxt-link to="/" class="text-white hover:text-yellow-100">Home</nuxt-link>
                         >
                         <nuxt-link to="/catalog" class="text-orange-400">Catalog</nuxt-link>
@@ -55,9 +55,29 @@ onMounted(() => {
         </div>
     </div>
     <!-- End Title -->
-    <div class=" text-orange-400 text-2xl md:text-3xl font-sans mt-2 p-2 ms-14">
-        Fress Fruits and Vegetables
+    <div class="flex justify-between items-center px-4 md:px-14">
+
+        <div class="text-orange-400 text-2xl md:text-3xl font-sans">
+            Fresh Fruits and Vegetables
+            <div class="mt-5">
+
+                <hr class="border-t border-orange-500 w-24 mx-auto sm:mx-0" />
+            </div>
+        </div>
+        <div class="w-96 relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 text-gray-600">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </div>
+            <input type="search" id="input-label-with-helper-text"
+                class="py-3 ps-10 pe-4 block w-full border border-orange-300 rounded-lg text-sm focus:border-orange-500 focus:ring-orange-500 disabled:opacity-50 disabled:pointer-events-none outline-none"
+                placeholder="what you need?" aria-describedby="hs-input-helper-text">
+        </div>
     </div>
+
 
     <Catalog :preview-mode="false" />
 

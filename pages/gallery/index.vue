@@ -55,8 +55,15 @@ onMounted(() => {
         </div>
     </div>
     <!-- End Title -->
-    <div class=" text-orange-400 text-2xl md:text-3xl font-sans mt-2 p-2 ms-14">
-        Foto Kegiatan Koyasai
+    <div class="flex justify-between items-center px-4 md:px-14">
+
+        <div class="text-orange-400 text-2xl md:text-3xl font-sans">
+            Foto Kegiatan Koyasai
+            <div class="mt-5">
+
+                <hr class="border-t border-orange-500 w-24 mx-auto sm:mx-0" />
+            </div>
+        </div>
     </div>
 
     <Gallery :preview-mode="false" />
