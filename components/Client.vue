@@ -47,6 +47,10 @@ const doubledLogos = computed(() => [...logos.value, ...logos.value]);
   width: max-content;
 }
 
+.marquee:hover {
+  animation-play-state: paused;
+}
+
 .logo-item {
   flex-shrink: 0;
   padding: 0 1.5rem;
