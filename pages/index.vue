@@ -1,7 +1,8 @@
 <template>
   <div class="font-sans">
-    <Hero />
+    <Hero />    
     <About />
+    <Services />
     <div class="max-w-7xl mx-auto px-4">
       <h2
         class="text-orange-500 text-2xl font-semibold mb-6 text-center sm:text-left"

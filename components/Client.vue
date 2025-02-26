@@ -1,6 +1,6 @@
 <template>
   <div class="px-4 md:px-8 lg:px-10">
-    <div
+    <div data-aos="fade-in" data-aos-duration="1000"
       class="max-w-7xl py-16 mx-auto px-3 my-6 bg-white"
     >
 

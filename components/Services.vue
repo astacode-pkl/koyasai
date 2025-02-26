@@ -1,16 +1,16 @@
 <template>
-  <div class="max-w-6xl mx-auto px-4 py-16">
+  <div class="max-w-7xl mx-auto px-4 py-16">
     <h2
       class="text-orange-500 text-2xl font-semibold mb-6 text-center sm:text-left"
       data-aos="fade-right"
-      data-aos-duration="3000"
+      data-aos-duration="500"
     >
       Services
     </h2>
     <hr
       class="border-t border-orange-500 w-24 mb-6 mx-auto sm:mx-0"
       data-aos="fade-left"
-      data-aos-duration="3000"
+      data-aos-duration="500"
     />
 
     <!-- Grid Section -->
@@ -21,11 +21,12 @@
         <!-- First Card -->
         <div
           data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos-duration="1000"
+          data-aos-delay="200"
           class="flex flex-col justify-center p-6 text-center border rounded-lg transition-all duration-300 hover:sweep-to-bottom hover:bg-orange-600 hover:transform hover:scale-105 hover:shadow-lg hover:text-white group w-full h-64"
         >
           <svg
-            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white"
+            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white mx-auto"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -54,11 +55,12 @@
         <!-- Second Card -->
         <div
           data-aos="fade-up"
-          data-aos-duration="2500"
+          data-aos-duration="1000"
+          data-aos-delay="400"
           class="flex flex-col justify-center p-6 text-center border rounded-lg transition-all duration-300 hover:bg-orange-600 hover:transform hover:scale-105 hover:shadow-lg hover:text-white group w-full h-64"
         >
           <svg
-            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white"
+            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white mx-auto"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -86,11 +88,12 @@
         <!-- Third Card -->
         <div
           data-aos="fade-up"
-          data-aos-duration="2000"
+          data-aos-duration="1000"
+          data-aos-delay="600"
           class="flex flex-col justify-center p-6 text-center border rounded-lg transition-all duration-300 hover:bg-orange-600 hover:transform hover:scale-105 hover:shadow-lg hover:text-white group w-full h-64"
         >
           <svg
-            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white"
+            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white mx-auto"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -120,10 +123,11 @@
         <div
           data-aos="fade-up"
           data-aos-duration="1000"
+          data-aos-delay="800"
           class="flex flex-col justify-center p-6 text-center border rounded-lg transition-all duration-300 hover:bg-orange-600 hover:transform hover:scale-105 hover:shadow-lg hover:text-white group w-full h-64"
         >
           <svg
-            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white"
+            class="w-8 h-8 text-orange-500 mb-4 group-hover:text-white mx-auto"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
