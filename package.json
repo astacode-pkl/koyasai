@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/image": "^1.9.0",
     "aos": "^2.3.4",
     "nuxt": "^3.15.1",
     "preline": "^2.7.0",

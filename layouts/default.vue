@@ -1,13 +1,14 @@
 <template>
-    <div >
-        <Navbar />
-        <slot />
-        <Footer />
-    </div>
+  <div>
+    <Navbar />
+    <slot />
+    <Floating />
+    <Footer />
+  </div>
 </template>
 
 <style>
 template {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 </style>

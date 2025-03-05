@@ -1,12 +1,40 @@
-<script>
-import { ref, onMounted } from 'vue'
+<script >
+const catalog = ref([]);
+
+const getDataCatalog = async () => {
+  try {
+    const response = await fetch(
+      "https://guiding-gentle-yak.ngrok-free.app/api/catalog",
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.status === 200) {
+      catalog.value = data.catalog;
+    } else {
+      console.error("Error fetching:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+onMounted(() => {
+    getDataCatalog();
+});
+
 import image1 from '@/assets/img/catalog1.jpg'
 import image2 from '@/assets/img/catalog2.jpg'
 import image3 from '@/assets/img/catalog3.jpg'
 import image4 from '@/assets/img/catalog4a.jpg'
 import image5 from '@/assets/img/catalog5.jpg'
 import image6 from '@/assets/img/catalog6.jpg'
-import image7 from '@/assets/img/catalog6.jpg'
 
 export default {
     name: 'Catalog',

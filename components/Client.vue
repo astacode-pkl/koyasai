@@ -20,6 +20,36 @@
 </template>
 
 <script setup>
+const client = ref([]);
+
+const getDataClient = async () => {
+  try {
+    const response = await fetch(
+      "https://guiding-gentle-yak.ngrok-free.app/api/client",
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.status === 200) {
+      client.value = data.client;
+    } else {
+      console.error("Error fetching:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+onMounted(() => {
+    getDataClient();
+});
+
 const logos = ref([
   "https://www.astacode.id/fe/assets/img/logo/logo.png",
   "https://www.astacode.id/fe/assets/img/logo/logo.png",

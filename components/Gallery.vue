@@ -1,12 +1,40 @@
 <script>
-import { ref, onMounted } from 'vue'
+const gallery = ref([]);
+
+const getDataGallery = async () => {
+  try {
+    const response = await fetch(
+      "https://guiding-gentle-yak.ngrok-free.app/api/gallery",
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok && data.status === 200) {
+      gallery.value = data.gallery;
+    } else {
+      console.error("Error fetching:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+onMounted(() => {
+    getDataGallery();
+});
+
 import image1 from '@/assets/img/galeri1.jpg'
 import image2 from '@/assets/img/galeri2.jpg'
 import image3 from '@/assets/img/galeri3.jpg'
 import image4 from '@/assets/img/galeri4.jpg'
 import image5 from '@/assets/img/galeri5.jpg'
 import image6 from '@/assets/img/galeri6.jpg'
-import image7 from '@/assets/img/galeri6.jpg'
 
 export default {
   name: 'Gallery',

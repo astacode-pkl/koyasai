@@ -24,6 +24,7 @@
             </div>            
           </div>
         </div>
+        
         <button
           type="button"
           class="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute inset-y-0 start-0 inline-flex justify-center items-center w-[46px] h-full text-primary"
