@@ -295,7 +295,7 @@ const form = ref({
 const submitData = async () => {
   try {
     const response = await fetch(
-      "https://guiding-gentle-yak.ngrok-free.app/api/contact",
+      "https://guiding-gentle-yak.ngrok-free.app/api/contacts",
       {
         method: "POST",
         headers: {

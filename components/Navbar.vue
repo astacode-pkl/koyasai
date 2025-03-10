@@ -1,16 +1,24 @@
+<script setup>
+import { useCompanyProfile } from "~/composables/useCompanyProfile";
+
+const { companyProfile } = useCompanyProfile();
+</script>
+<!-- <div v-if="companyProfile.length > 0" class="border rounded-lg p-4 shadow-lg">
+    <img :src="companyProfile[0].logo_mark" alt="Company Logo" class="w-32 h-32 object-cover mb-4" />
+    <img :src="companyProfile[0].logo_type" alt="Company Logo" class="w-32 h-32 object-cover mb-4" /> -->
 <template>
     <div>
-        <!-- ========== HEADER -->
+        <!-- HEADER -->
         <header
             ref="headerRef"
             class="fixed top-0 border-b bg-white border-gray-200 flex flex-wrap md:justify-start md:flex-nowrap z-50 h-16 lg:h-20 w-full transition-all duration-300 rounded-b-2xl">
             <nav
                 class="relative max-w-[85rem] w-full md:flex md:items-center md:justify-between md:gap-3 mx-auto px-4 py-auto sm:px-6 lg:px-8 py-2">
                 <!-- Logo w/ Collapse Button -->
-                <div class="flex items-center justify-between">
+                <div v-if="companyProfile.length > 0" class="flex items-center justify-between">
                     <Nuxt-link class="flex gap-3" to="#" aria-label="Brand">
-                        <img src="/assets/img/logo.png" alt="logo" class="w-12 md:w-14">
-                        <img src="/assets/img/nama.png" alt="nama" class="w-24 h-auto py-3">
+                        <img :src="companyProfile[0].logo_mark" alt="logo" class="w-12 md:w-14">
+                        <img :src="companyProfile[0].logo_type" alt="nama" class="w-24 h-auto py-3">
                     </Nuxt-link>
                     <!-- Collapse Button -->
                     <div class="md:hidden">

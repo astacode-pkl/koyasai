@@ -20,14 +20,23 @@
 </template>
 
 <script setup>
-const client = ref([]);
+const logos = ref([
+  "https://www.astacode.id/fe/assets/img/logo/logo.png",
+  "https://www.astacode.id/fe/assets/img/logo/logo.png",
+  "https://www.astacode.id/fe/assets/img/logo/logo.png",
+  "https://www.astacode.id/fe/assets/img/logo/logo.png",
+  "https://www.astacode.id/fe/assets/img/logo/logo.png",
+]);
 
-const getDataClient = async () => {
+
+const Clients = ref([]);
+
+
+const getDataClients = async () => {
   try {
     const response = await fetch(
-      "https://guiding-gentle-yak.ngrok-free.app/api/client",
+      "https://guiding-gentle-yak.ngrok-free.app/api/clients",
       {
-        method: "GET",
         headers: {
           "ngrok-skip-browser-warning": "true",
         },
@@ -36,8 +45,9 @@ const getDataClient = async () => {
 
     const data = await response.json();
 
-    if (response.ok && data.status === 200) {
-      client.value = data.client;
+    if (response.ok && data.status === 200) { 
+      Clients.value = data.clients; 
+      console.log("Data Clients:", data.clients);
     } else {
       console.error("Error fetching:", data);
     }
@@ -47,16 +57,8 @@ const getDataClient = async () => {
 };
 
 onMounted(() => {
-    getDataClient();
+  getDataClients();
 });
-
-const logos = ref([
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-]);
 
 const doubledLogos = computed(() => [...logos.value, ...logos.value]);
 </script>

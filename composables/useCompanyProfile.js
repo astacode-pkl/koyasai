@@ -8,17 +8,17 @@ export function useCompanyProfile() {
       const response = await fetch(
         "https://guiding-gentle-yak.ngrok-free.app/api/companyprofile",
         {
-          method: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
         }
       );
-
+  
       const data = await response.json();
-
-      if (response.ok && data.status === 200) {
-        companyProfile.value = data.companyprofile;
+  
+      if (response.ok && data.status === 200) { 
+        companyProfile.value = data.companyprofile; 
+        console.log("Data Company Profile:", data.companyprofile);
       } else {
         console.error("Error fetching:", data);
       }
@@ -26,10 +26,10 @@ export function useCompanyProfile() {
       console.error("Error fetching data:", error);
     }
   };
-
+  
   onMounted(() => {
     getDataComprof();
   });
-
+  
   return { companyProfile, getDataComprof };
 }

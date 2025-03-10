@@ -1,34 +1,4 @@
-<script >
-const catalog = ref([]);
-
-const getDataCatalog = async () => {
-  try {
-    const response = await fetch(
-      "https://guiding-gentle-yak.ngrok-free.app/api/catalog",
-      {
-        method: "GET",
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.ok && data.status === 200) {
-      catalog.value = data.catalog;
-    } else {
-      console.error("Error fetching:", data);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
-
-onMounted(() => {
-    getDataCatalog();
-});
-
+<script>
 import image1 from '@/assets/img/catalog1.jpg'
 import image2 from '@/assets/img/catalog2.jpg'
 import image3 from '@/assets/img/catalog3.jpg'
