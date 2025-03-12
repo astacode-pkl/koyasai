@@ -1,11 +1,5 @@
-<!-- <script setup>
-import { useCompanyProfile } from "~/composables/useCompanyProfile";
-
-const { companyProfile } = useCompanyProfile();
-</script> -->
-
-<template>
-  <!-- <div class="max-w-7xl mx-auto px-4 py-16">
+<!-- <template>
+  <div class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-orange-500 text-2xl font-semibold mb-6 text-center">
       Company Profile
     </h2>
@@ -114,7 +108,7 @@ const { companyProfile } = useCompanyProfile();
         <img :src="hero.image" alt="Hero Image" class="w-full h-48 object-cover" />
       </div>
     </div>
-  </div> -->
+  </div>
 <h1>test api</h1>
 </template>
 
@@ -300,4 +294,66 @@ const getDataHeroes = async () => {
 onMounted(() => {
   getDataHeroes();
 });
+</script> -->
+<template>
+  <div class="mt-80 pt-40">
+    <h1>Data Overview</h1>
+    
+    <h2>Catalogs</h2>
+    <ul>
+      <li v-for="(catalog, index) in catalogs" :key="index">{{ catalog.name }}</li>
+    </ul>
+
+    <h2>Clients</h2>
+    <ul>
+      <li v-for="(client, index) in clients" :key="index">{{ client.image }}</li>
+    </ul>
+
+    <h2>Company Profile</h2>
+    <div v-if="companyProfile.length">
+      <h3>{{ companyProfile[0].name }}</h3>      
+    </div>
+
+    <h2>Galleries</h2>
+    <ul>
+      <li v-for="(gallery, index) in galleries" :key="index">{{ gallery.title }}</li>
+    </ul>
+
+    <h2>Heroes</h2>
+    <ul>
+      <li v-for="(hero, index) in heroes" :key="index">{{ hero.image }}</li>
+    </ul>
+
+    <h2>News</h2>
+    <ul>
+      <li v-for="(newsItem, index) in news" :key="index">{{ newsItem.title }}</li>
+    </ul>
+
+    <h2>Services</h2>
+    <ul>
+      <li v-for="(service, index) in services" :key="index">{{ service.title }}</li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { useBatchStore } from '@/stores/batchStore';
+
+const batchStore = useBatchStore();
+
+onMounted(() => {
+  batchStore.fetchAllData();
+});
+
+const catalogs = computed(() => batchStore.catalogs);
+const clients = computed(() => batchStore.clients);
+const companyProfile = computed(() => batchStore.companyProfile);
+const galleries = computed(() => batchStore.galleries);
+const heroes = computed(() => batchStore.heroes);
+const news = computed(() => batchStore.news);
+const services = computed(() => batchStore.services);
 </script>
+
+<style scoped>
+/* Tambahkan gaya CSS sesuai kebutuhan */
+</style>

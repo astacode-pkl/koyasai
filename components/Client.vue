@@ -20,47 +20,20 @@
 </template>
 
 <script setup>
-const logos = ref([
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-  "https://www.astacode.id/fe/assets/img/logo/logo.png",
-]);
+import { useClientStore } from "@/stores/clientStore";
+const clientStore = useClientStore();
 
-
-const Clients = ref([]);
-
-
-const getDataClients = async () => {
-  try {
-    const response = await fetch(
-      "https://guiding-gentle-yak.ngrok-free.app/api/clients",
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.ok && data.status === 200) { 
-      Clients.value = data.clients; 
-      console.log("Data Clients:", data.clients);
-    } else {
-      console.error("Error fetching:", data);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+const getDataClient = async () => {
+    await clientStore.fetchClient();
 };
 
 onMounted(() => {
-  getDataClients();
+  getDataClient();
 });
 
-const doubledLogos = computed(() => [...logos.value, ...logos.value]);
+const Clients = computed(() => clientStore.Clients);
+
+const doubledLogos = computed(() => Clients.value.flatMap((client) => [client.image, client.image]));
 </script>
 
 <style scoped>

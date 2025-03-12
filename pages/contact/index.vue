@@ -48,7 +48,10 @@
 
   <!-- section -->
   <div class="max-w-6xl mx-auto px-4 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div
+      v-if="companyProfile.length > 0"
+      class="grid grid-cols-1 md:grid-cols-2 gap-8"
+    >
       <!-- Get In Touch Section -->
       <div class="mt-7">
         <h2
@@ -77,7 +80,7 @@
         <div class="card rounded-2xl">
           <div class="mt-8 animate-fade-in">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.9013908491333!2d108.14592479999999!3d-7.137400899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f495efa140885%3A0xdf0a87b6588b1161!2sPerum%20Puri%20Ciawi%20Kencana!5e0!3m2!1sen!2sid!4v1736971326002!5m2!1sen!2sid"
+              :src="companyProfile[0].map"
               width="100%"
               height="300"
               style="border: 0"
@@ -135,9 +138,7 @@
           <div>
             <h3 class="font-semibold">Address:</h3>
             <p class="text-gray-600">
-              Jl. Parangtritis Raya No.3 Ancol Barat, <br />
-              Pademangan Jakarta Utara, <br />
-              Jakarta 14430 (contoh)
+              {{ companyProfile[0].address }}
             </p>
           </div>
         </div>
@@ -284,6 +285,18 @@ useHead({
   ],
 });
 
+import { useComprofStore } from "@/stores/comprofStore";
+const comprofStore = useComprofStore();
+
+const getDataComprof = async () => {
+  await comprofStore.fetchComprof();
+};
+
+onMounted(() => {
+  getDataComprof();
+});
+
+const companyProfile = computed(() => comprofStore.companyProfile);
 const loading = ref(true);
 const form = ref({
   name: "",

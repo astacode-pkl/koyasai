@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
   plugins: ["~/plugins/preline.client.ts",
-    { src: '~/plugins/aos.ts', mode: 'client', ssr: false }
+    { src: '~/plugins/aos.ts', mode: 'client', ssr: false }, 
+    "~/plugins/pinia.ts",
   ],
   postcss: {
     plugins: {

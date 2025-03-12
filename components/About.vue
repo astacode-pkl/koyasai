@@ -26,21 +26,14 @@
           class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-center"
         >
           <!-- Text content -->
-          <div class="space-y-4 md:space-y-6 text-left">
+          <div v-if="companyProfile.length > 0" class="space-y-4 md:space-y-6 text-left">
             <p
               class="text-lg text-gray-700 leading-relaxed text-justify"
               data-aos="fade-up"
               data-aos-duration="500"
               data-aos-delay="200"
             >
-              Fruitarianism is a part of the vegan diet practice where this
-              practice replaces the diet by consuming only fruits, grains, nuts.
-              All vegetables are good to eat, especially colored vegetables
-              (dark green, yellow, and orange) such as spinach, kale, katuk
-              leaves, carrots, green lettuce or cassava leaves. All fruits are
-              good to eat, especially colored ones (red, yellow) such as mango,
-              papaya, orange, guava or apple contain more vitamins and minerals
-              and fiber.
+            {{ companyProfile[0].simple_history }}
             </p>
             <a
               class="text-orange-500 font-bold flex items-center space-x-2"
@@ -77,3 +70,18 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useComprofStore } from "@/stores/comprofStore";
+const comprofStore = useComprofStore();
+
+const getDataComprof = async () => {
+    await comprofStore.fetchComprof();
+};
+
+onMounted(() => {
+  getDataComprof();
+});
+
+const companyProfile = computed(() => comprofStore.companyProfile);
+</script>
