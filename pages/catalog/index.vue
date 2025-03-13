@@ -1,4 +1,7 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useCatalogStore } from '@/stores/catalogStore';
+
 useHead({
     title: "Catalog",
     meta: [
@@ -9,9 +12,10 @@ useHead({
     ],
 });
 
-
 const loading = ref(true);
-
+const searchQuery = ref('');
+const catalogStore = useCatalogStore();
+const skeletonCount = 6;
 
 onMounted(() => {
     setTimeout(() => {
@@ -19,21 +23,27 @@ onMounted(() => {
     }, 2000);
 });
 
+const handleSearch = () => {
+    catalogStore.setSearchQuery(searchQuery.value);
+};
 
+// Debounce function for search input
+let debounceTimeout;
+const debounceSearch = (e) => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        searchQuery.value = e.target.value;
+        handleSearch();
+    }, 500); // 500ms delay
+};
 </script>
+
 <template>
     <!-- Title -->
     <div class="h-[30vh] w-full relative mb-10 shadow-md flex items-center justify-center mt-16">
         <div>
             <div v-if="loading">
-                <div v-for="n in skeletonCount" :key="n"
-                    class="bg-gray-500 border-2 border-gray-100 rounded-md mb-4 p-4 flex items-center">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-                    <div class="flex-1">
-                        <div class="w-3/4 h-4 bg-gray-300 rounded-md mb-2"></div>
-                        <div class="w-1/2 h-3 bg-gray-300 rounded-md"></div>
-                    </div>
-                </div>
+                
             </div>
 
             <div v-else>
@@ -55,16 +65,14 @@ onMounted(() => {
         </div>
     </div>
     <!-- End Title -->
-    <div class="flex justify-between items-center px-4 md:px-14">
-
+    <div class="flex flex-col md:flex-row justify-between items-center px-4 md:px-14 gap-4">
         <div class="text-orange-400 text-2xl md:text-3xl font-sans">
             Fresh Fruits and Vegetables
             <div class="mt-5">
-
                 <hr class="border-t border-orange-500 w-24 mx-auto sm:mx-0" />
             </div>
         </div>
-        <div class="w-96 relative">
+        <div class="w-full md:w-96 relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5 text-gray-600">
@@ -72,13 +80,12 @@ onMounted(() => {
                         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
             </div>
-            <input type="search" id="input-label-with-helper-text"
+            <input v-model="searchQuery" @input="debounceSearch" @keyup.enter="handleSearch" type="search"
+                id="input-label-with-helper-text"
                 class="py-3 ps-10 pe-4 block w-full border border-orange-300 rounded-lg text-sm focus:border-orange-500 focus:ring-orange-500 disabled:opacity-50 disabled:pointer-events-none outline-none"
                 placeholder="what you need?" aria-describedby="hs-input-helper-text">
         </div>
     </div>
 
-
     <Catalog :preview-mode="false" />
-
 </template>

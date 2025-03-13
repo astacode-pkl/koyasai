@@ -6,37 +6,51 @@ export const useCatalogStore = defineStore('catalogs', {
     isFetched: false,
     isLoading: false,
     error: null,
+    searchQuery: '',
   }),
   actions: {
-    async fetchCatalogs() {
-      if (this.isFetched || this.isLoading) return;
-
+    async fetchCatalogs(search = '') {
       this.isLoading = true;
       this.error = null;
-
+      
       try {
-        const cachedData = localStorage.getItem('catalogs');
-        if (cachedData) {
-          this.catalogs = JSON.parse(cachedData);
-          this.isFetched = true;         
-          return;
+        // Only use cache for non-search requests
+        if (!search && !this.searchQuery) {
+          const cachedData = localStorage.getItem('catalogs');
+          if (cachedData) {
+            this.catalogs = JSON.parse(cachedData);
+            this.isFetched = true;
+            this.isLoading = false;
+            return;
+          }
         }
-
-        const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/catalogs", {
+        
+        // Build the URL with search parameter if provided
+        let url = "https://guiding-gentle-yak.ngrok-free.app/api/catalogs";
+        if (search || this.searchQuery) {
+          const queryParam = search || this.searchQuery;
+          url += `?search=${encodeURIComponent(queryParam)}`;
+        }
+        
+        const response = await fetch(url, {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
         });
-
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+        
         const data = await response.json();
         if (data.status === 200) {
           this.catalogs = data.catalogs;
           this.isFetched = true;
-          localStorage.setItem('catalogs', JSON.stringify(data.catalogs));          
+          
+          // Only cache non-search results
+          if (!search && !this.searchQuery) {
+            localStorage.setItem('catalogs', JSON.stringify(data.catalogs));
+          }
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -47,11 +61,17 @@ export const useCatalogStore = defineStore('catalogs', {
         this.isLoading = false;
       }
     },
-
-    resetcatalogs() {
+    
+    setSearchQuery(query) {
+      this.searchQuery = query;
+      return this.fetchCatalogs(query);
+    },
+    
+    resetCatalogs() {
       this.catalogs = [];
       this.isFetched = false;
       this.error = null;
+      this.searchQuery = '';
       localStorage.removeItem('catalogs');
     },
   },

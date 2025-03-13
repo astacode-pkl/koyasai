@@ -4,7 +4,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mx-4 sm:mx-6 my-8 p-10 bg-white"
     >
       <div
-        v-for="(product, index) in Catalogs"
+        v-for="(product, index) in filteredCatalogs"
         :key="product.id"
         data-aos="fade-up"
         :data-aos-delay="index * 200"
@@ -96,14 +96,14 @@
           @click.stop
         >
           <img
-            :src="selectedImage.src"
-            :alt="selectedImage.title"
+            :src="selectedImage.image"
+            :alt="selectedImage.name"
             class="w-full rounded-lg shadow-xl"
           />
           <h3
             class="text-white text-base sm:text-lg md:text-xl font-semibold mt-4 text-center px-2"
           >
-            {{ selectedImage.title }}
+            {{ selectedImage.name }}
           </h3>
         </div>
       </div>
@@ -112,6 +112,7 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue';
 import { useCatalogStore } from '@/stores/catalogStore';
 
 const catalogStore = useCatalogStore();
@@ -129,7 +130,7 @@ onMounted(() => {
   isVisible.value = true;
 });
 
-const Catalogs = computed(() => catalogStore.catalogs);
+const filteredCatalogs = computed(() => catalogStore.catalogs);
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat("id-ID", {
