@@ -43,7 +43,7 @@ const debounceSearch = (e) => {
     <div class="h-[30vh] w-full relative mb-10 shadow-md flex items-center justify-center mt-16">
         <div>
             <div v-if="loading">
-                
+
             </div>
 
             <div v-else>

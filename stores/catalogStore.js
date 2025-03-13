@@ -23,9 +23,11 @@ export const useCatalogStore = defineStore('catalogs', {
             return;
           }
         }
+                
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
         
-        // Build the URL with search parameter if provided
-        let url = "https://guiding-gentle-yak.ngrok-free.app/api/catalogs";
+        let url = `${apiBaseUrl}/catalogs`;
         if (search || this.searchQuery) {
           const queryParam = search || this.searchQuery;
           url += `?search=${encodeURIComponent(queryParam)}`;
@@ -45,8 +47,7 @@ export const useCatalogStore = defineStore('catalogs', {
         if (data.status === 200) {
           this.catalogs = data.catalogs;
           this.isFetched = true;
-          
-          // Only cache non-search results
+                    
           if (!search && !this.searchQuery) {
             localStorage.setItem('catalogs', JSON.stringify(data.catalogs));
           }
@@ -54,8 +55,7 @@ export const useCatalogStore = defineStore('catalogs', {
           throw new Error(data.message || "Error fetching data");
         }
       } catch (error) {
-        this.error = error.message;
-        console.error("Error fetching catalogs:", this.error);
+        this.error = error.message;        
       } finally {
         this.isLoading = false;
       }

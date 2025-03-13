@@ -10,33 +10,38 @@ export const useClientStore = defineStore('client', {
   actions: {
     async fetchClient() {
       if (this.isFetched || this.isLoading) return;
-
+      
       this.isLoading = true;
       this.error = null;
-
+      
       try {
         const cachedData = localStorage.getItem('Clients');
         if (cachedData) {
           this.Clients = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;
+          
           return;
         }
-
-        const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/clients", {
+        
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/clients`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
         });
-
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+        
         const data = await response.json();
         if (data.status === 200) {
           this.Clients = data.clients;
           this.isFetched = true;
-          localStorage.setItem('Clients', JSON.stringify(data.clients));          
+          localStorage.setItem('Clients', JSON.stringify(data.clients));
+          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -47,7 +52,7 @@ export const useClientStore = defineStore('client', {
         this.isLoading = false;
       }
     },
-
+    
     resetClients() {
       this.Clients = [];
       this.isFetched = false;
