@@ -13,8 +13,7 @@ export const useCatalogStore = defineStore('catalogs', {
       this.isLoading = true;
       this.error = null;
       
-      try {
-        // Only use cache for non-search requests
+      try {        
         if (!search && !this.searchQuery) {
           const cachedData = localStorage.getItem('catalogs');
           if (cachedData) {
