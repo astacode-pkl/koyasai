@@ -16,8 +16,8 @@
           @click="openModal(product)"
         >
           <img
-            :src="product.src"
-            :alt="product.title"
+            :src="product.image"
+            :alt="product.name"
             @load="onImageLoad(index)"
             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
           />
@@ -25,16 +25,16 @@
             class="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black/90 via-black/70 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"
           >
             <div class="absolute bottom-0 p-4 text-white">
-              <h4 class="font-semibold text-lg mb-2">{{ product.title }}</h4>
+              <h4 class="font-semibold text-lg mb-2">{{ product.name }}</h4>
               <p class="text-sm leading-relaxed">
-                {{ product.hoverDescription }}
+                {{ product.description }}
               </p>
             </div>
           </div>
         </div>        
         <div class="p-4">
           <h3 class="text-lg font-semibold font-sans text-gray-800 mb-2">
-            {{ product.title }}
+            {{ product.name }}
           </h3>
           <p class="text-sm text-gray-600 mb-3">{{ product.description }}</p>
           <div class="flex items-center justify-between">

@@ -15,7 +15,7 @@
         <div class="absolute inset-0 bg-gray-200" />
         <div class="w-full h-full">
           <img
-            :src="image.src"
+            :src="image.image"
             :alt="image.title"
             @load="onImageLoad(index)"
             class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
@@ -66,7 +66,7 @@
           @click.stop
         >
           <img
-            :src="selectedImage.src"
+            :src="selectedImage.image"
             :alt="selectedImage.title"
             class="w-full rounded-lg shadow-xl"
           />

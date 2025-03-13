@@ -3,27 +3,56 @@ import { defineStore } from 'pinia';
 export const useHeroStore = defineStore('hero', {
   state: () => ({
     Heroes: [],
+    isFetched: false,
+    isLoading: false,
+    error: null,
   }),
   actions: {
     async fetchHero() {
+      if (this.isFetched || this.isLoading) return;
+
+      this.isLoading = true;
+      this.error = null;
+
       try {
+        const cachedData = localStorage.getItem('Heroes');
+        if (cachedData) {
+          this.Heroes = JSON.parse(cachedData);
+          this.isFetched = true;          
+          return;
+        }
+
         const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/heroes", {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
         });
 
-        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-        if (response.ok && data.status === 200) {
+        const data = await response.json();
+        if (data.status === 200) {
           this.Heroes = data.heroes;
-          console.log("Data Catalog:", data.heroes);
+          this.isFetched = true;
+          localStorage.setItem('Heroes', JSON.stringify(data.heroes));          
         } else {
-          console.error("Error fetching:", data);
+          throw new Error(data.message || "Error fetching data");
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        this.error = error.message;
+        console.error("Error fetching Heroes:", this.error);
+      } finally {
+        this.isLoading = false;
       }
+    },
+
+    resetHeroes() {
+      this.Heroes = [];
+      this.isFetched = false;
+      this.error = null;
+      localStorage.removeItem('Heroes');
     },
   },
 });

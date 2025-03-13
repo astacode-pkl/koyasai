@@ -296,7 +296,8 @@ onMounted(() => {
 });
 </script> -->
 <template>
-  <div class="mt-80 pt-40">
+  <h1>test</h1>
+  <!-- <div class="mt-80 pt-40">
     <h1>Data Overview</h1>
     
     <h2>Catalogs</h2>
@@ -333,10 +334,10 @@ onMounted(() => {
     <ul>
       <li v-for="(service, index) in services" :key="index">{{ service.title }}</li>
     </ul>
-  </div>
+  </div> -->
 </template>
 
-<script setup>
+<!-- <script setup>
 import { useBatchStore } from '@/stores/batchStore';
 
 const batchStore = useBatchStore();
@@ -352,8 +353,4 @@ const galleries = computed(() => batchStore.galleries);
 const heroes = computed(() => batchStore.heroes);
 const news = computed(() => batchStore.news);
 const services = computed(() => batchStore.services);
-</script>
-
-<style scoped>
-/* Tambahkan gaya CSS sesuai kebutuhan */
-</style>
+</script> -->

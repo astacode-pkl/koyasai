@@ -90,6 +90,7 @@ const getDataHeroes = async () => {
 };
 
 onMounted(() => {
+  heroStore.isFetched = false; 
   getDataHeroes();
 });
 
