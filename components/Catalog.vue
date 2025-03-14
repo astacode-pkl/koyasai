@@ -4,7 +4,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mx-4 sm:mx-6 my-8 p-10 bg-white"
     >
       <div
-        v-for="(product, index) in Catalogs"
+        v-for="(product, index) in displayedImages"
         :key="product.id"
         data-aos="fade-up"
         :data-aos-delay="index * 200"
@@ -129,8 +129,18 @@ onMounted(() => {
   isVisible.value = true;
 });
 
-const Catalogs = computed(() => catalogStore.catalogs);
 
+
+
+
+const Catalogs = computed(() => catalogStore.catalogs);
+const displayedImages = computed(() => {
+  return props.previewMode ? Catalogs.value.slice(0, 3) : Catalogs.value;
+});
+
+const props = defineProps({
+  previewMode: Boolean,
+});
 const formatPrice = (price) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",

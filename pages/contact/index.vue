@@ -168,6 +168,7 @@ useHead({
 
 import { useComprofStore } from "@/stores/comprofStore";
 const comprofStore = useComprofStore();
+import Swal from 'sweetalert2'
 
 const getDataComprof = async () => {
   await comprofStore.fetchComprof();
@@ -184,6 +185,7 @@ const form = ref({
   email: "",
   subject: "",
   message: "",
+ 
 });
 const isSubmitting = ref(false);
 
@@ -204,14 +206,35 @@ const submitData = async () => {
 
     if (response.ok) {
       console.log("Message submitted successfully");
-      alert("Message submitted successfully!");
+      Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Pesan Terkirim',
+            confirmButtonColor: '#ec4899',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+        })
       resetForm();
     } else {
-      throw new Error("Failed to submit message");
+      Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Silahkan coba lagi!',
+            confirmButtonColor: '#ec4899',
+            confirmButtonText: 'OK'
+        })
+      // throw new Error("Failed to submit message");
     }
   } catch (error) {
     console.error("Error:", error);
-    alert("An error occurred while sending your message. Please try again.");
+    Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Pesan kamu tidak terkirim. Silahkan coba lagi!',
+            confirmButtonColor: '#ec4899',
+            confirmButtonText: 'OK'
+        })
   } finally {
     isSubmitting.value = false; // Reset loading state
   }
@@ -230,3 +253,25 @@ onMounted(() => {
   }, 2000);
 });
 </script>
+
+
+<style setup>
+.swal2-popup {
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 1rem !important;
+}
+
+.swal2-title {
+    color: #333333 !important;
+
+}
+
+.swal2-confirm {
+    background-color: #d63030 !important;
+
+
+    &:hover {
+        background-color: #d63030 !important;
+    }
+}
+</style>

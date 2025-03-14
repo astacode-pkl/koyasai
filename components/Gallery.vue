@@ -4,7 +4,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 items-center mx-3 sm:mx-5 mb-5 p-10 bg-white"
     >
       <div
-        v-for="(image, index) in Galleries"
+        v-for="(image, index) in displayedImages"
         :key="image.id"
         data-aos="fade-up"
         :data-aos-delay="index * 200"
@@ -100,10 +100,12 @@ onMounted(() => {
 });
 
 const Galleries = computed(() => galleryStore.Galleries); 
-
-
 const displayedImages = computed(() => {
-  return previewMode ? Galleries.value.slice(0, 3) : Galleries.value;
+  return props.previewMode ? Galleries.value.slice(0, 3) : Galleries.value;
+});
+
+const props = defineProps({
+  previewMode: Boolean,
 });
 
 const onImageLoad = (index) => {
