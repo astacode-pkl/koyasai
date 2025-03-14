@@ -15,6 +15,7 @@
     "nuxt": "^3.15.1",
     "pinia": "^3.0.1",
     "preline": "^2.7.0",
+    "sweetalert2": "^11.17.2",
     "vue": "latest",
     "vue-router": "latest"
   },
