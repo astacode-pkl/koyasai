@@ -1,35 +1,18 @@
 <script setup>
-const Services = ref([]);
-
+import { useServiceStore } from "@/stores/serviceStore";
+const serviceStore = useServiceStore();
 
 const getDataServices = async () => {
-  try {
-    const response = await fetch(
-      "https://guiding-gentle-yak.ngrok-free.app/api/services",
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true",
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    if (response.ok && data.status === 200) {
-      Services.value = data.services;
-      console.log("Data services:", data.services);
-    } else {
-      console.error("Error fetching:", data);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
+  await serviceStore.fetchService();
 };
+
+const Services = computed(() => serviceStore.Services);
 
 onMounted(() => {
   getDataServices();
 });
 </script>
+
 <template>
  <div class="max-w-7xl mx-auto px-4 py-16">
     <h2
