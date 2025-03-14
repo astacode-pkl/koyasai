@@ -23,12 +23,19 @@
           <p class="mt-1 text-gray-500">
             {{ newsItem.description }}
           </p>
-          <a
+          <!-- <a
             class="mt-3 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary text-white hover:bg-orange-600 focus:outline-none focus:bg-orange-700 disabled:opacity-50 disabled:pointer-events-none"
             href="/news/readmore"
           >
             Read More
-          </a>
+          </a> -->
+          <NuxtLink
+  class="mt-3 py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-primary text-white hover:bg-orange-600 focus:outline-none focus:bg-orange-700 disabled:opacity-50 disabled:pointer-events-none"
+  :to="`/news/${newsItem.id}`"
+>
+  Read More
+</NuxtLink>
+
         </div>
       </div>
     </div>
