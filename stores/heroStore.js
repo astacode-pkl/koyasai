@@ -21,8 +21,11 @@ export const useHeroStore = defineStore('hero', {
           this.isFetched = true;          
           return;
         }
-
-        const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/heroes", {
+        
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/heroes`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },

@@ -9,18 +9,29 @@ useHead({
     ],
 });
 
+import { ref, computed, onMounted } from "vue";
+import { useCatalogStore } from "@/stores/catalogStore";
 
+const catalogStore = useCatalogStore();
+
+// State
+const searchQuery = ref(""); // State untuk pencarian
 const loading = ref(true);
 
-
-onMounted(() => {
-    setTimeout(() => {
-        loading.value = false;
-    }, 2000);
+// Ambil data saat komponen dimount
+onMounted(async () => {
+  await catalogStore.fetchCatalogs();
+  loading.value = false;
 });
 
-
+// Filtered Catalogs berdasarkan input pencarian
+const filteredCatalogs = computed(() => {
+  return catalogStore.catalogs.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
 </script>
+
 <template>
     <!-- Title -->
     <div class="h-[30vh] w-full relative mb-10 shadow-md flex items-center justify-center mt-16">
@@ -60,7 +71,6 @@ onMounted(() => {
         <div class="text-orange-400 text-2xl md:text-3xl font-sans">
             Fresh Fruits and Vegetables
             <div class="mt-5">
-
                 <hr class="border-t border-orange-500 w-24 mx-auto sm:mx-0" />
             </div>
         </div>
@@ -72,13 +82,12 @@ onMounted(() => {
                         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
             </div>
-            <input type="search" id="input-label-with-helper-text"
+            <input  v-model="searchQuery" type="search" id="input-label-with-helper-text"
                 class="py-3 ps-10 pe-4 block w-full border border-orange-300 rounded-lg text-sm focus:border-orange-500 focus:ring-orange-500 disabled:opacity-50 disabled:pointer-events-none outline-none"
                 placeholder="what you need?" aria-describedby="hs-input-helper-text">
         </div>
     </div>
 
 
-    <Catalog :preview-mode="false" />
-
+    <Catalog :preview-mode="false" :filtered-data="filteredCatalogs"/>
 </template>

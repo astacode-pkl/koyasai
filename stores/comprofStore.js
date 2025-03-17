@@ -22,14 +22,14 @@ export const useComprofStore = defineStore("companyprofile", {
           return;
         }
 
-        const response = await fetch(
-          "https://guiding-gentle-yak.ngrok-free.app/api/companyprofile",
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "true",
-            },
-          }
-        );
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/companyprofile`, {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

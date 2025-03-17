@@ -22,7 +22,10 @@ export const useCatalogStore = defineStore('catalogs', {
           return;
         }
 
-        const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/catalogs", {
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/catalogs`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },
@@ -54,5 +57,5 @@ export const useCatalogStore = defineStore('catalogs', {
       this.error = null;
       localStorage.removeItem('catalogs');
     },
-  },
+    },
 });

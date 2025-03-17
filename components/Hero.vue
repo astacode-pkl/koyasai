@@ -2,6 +2,7 @@
   <div>
     <!-- Slider -->
     <div
+      v-if="Heroes.length > 0"
       data-hs-carousel='{
               "loadingClasses": "opacity-0",
               "dotsItemClasses": "hs-carousel-active:bg-primary hs-carousel-active:border-primary size-3 border border-gray-400 rounded-full cursor-pointer",
@@ -11,7 +12,7 @@
     >
       <div class="hs-carousel relative overflow-hidden h-screen bg-white">
         <div
-          class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0"
+          class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700"
         >
           <div
             v-for="(hero, index) in Heroes"
@@ -82,17 +83,30 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useHeroStore } from "@/stores/heroStore";
+
 const heroStore = useHeroStore();
 
 const getDataHeroes = async () => {
-    await heroStore.fetchHero();
+  await heroStore.fetchHero();
+  await nextTick(); // Pastikan Vue merender ulang setelah data diambil
 };
 
-onMounted(() => {
-  heroStore.isFetched = false; 
-  getDataHeroes();
+// Computed untuk mengambil data dari store
+const Heroes = computed(() => heroStore.Heroes);
+
+// Memantau perubahan data Heroes dan memperbarui slider jika sudah ada data
+watch(Heroes, (newHeroes) => {
+  if (newHeroes.length > 0) {
+    setTimeout(() => {
+      document.querySelector(".hs-carousel-body")?.classList.remove("opacity-0");
+    }, 100);
+  }
 });
 
-const Heroes = computed(() => heroStore.Heroes);
+onMounted(async () => {
+  heroStore.isFetched = false;
+  await getDataHeroes();
+});
 </script>

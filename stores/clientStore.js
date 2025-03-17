@@ -21,8 +21,11 @@ export const useClientStore = defineStore('client', {
           this.isFetched = true;          
           return;
         }
-
-        const response = await fetch("https://guiding-gentle-yak.ngrok-free.app/api/clients", {
+        
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/clients`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
           },

@@ -22,14 +22,14 @@ export const useGalleryStore = defineStore("gallery", {
           return;
         }
 
-        const response = await fetch(
-          "https://guiding-gentle-yak.ngrok-free.app/api/galleries",
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "true",
-            },
-          }
-        );
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/galleries`, {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

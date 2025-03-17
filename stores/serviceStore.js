@@ -21,15 +21,15 @@ export const useServiceStore = defineStore("service", {
           this.isFetched = true;          
           return;
         }
-
-        const response = await fetch(
-          "https://guiding-gentle-yak.ngrok-free.app/api/services",
-          {
-            headers: {
-              "ngrok-skip-browser-warning": "true",
-            },
-          }
-        );
+                        
+        const config = useRuntimeConfig();
+        const apiBaseUrl = config.public.apiBaseUrl;
+        
+        const response = await fetch(`${apiBaseUrl}/services`, {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

@@ -136,13 +136,7 @@ const companyProfile = computed(() => comprofStore.companyProfile);
                 to="/contact"
               >
                 Contact
-              </Nuxt-link>
-              <Nuxt-link
-                class="p-2 flex items-center text-sm text-gray-800 hover:text-primary focus:outline-none focus:text-primary"
-                to="/test"
-              >
-                Contact
-              </Nuxt-link>
+              </Nuxt-link>              
             </div>
           </div>
         </div>

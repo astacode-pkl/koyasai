@@ -8,7 +8,7 @@
       News
     </h2>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-10 px-5 mb-10">
-      <div data-aos="fade-up" :data-aos-delay="card * 200"
+      <div data-aos="fade-up" :data-aos-delay="index * 200"
         v-for="(newsItem, index) in News"
         :key="newsItem.id"
         class="flex flex-col bg-white border shadow-md rounded-xl col-span-1 transform transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-primary"
