@@ -18,7 +18,7 @@ export const useComprofStore = defineStore("companyprofile", {
       try {
         const cachedData = localStorage.getItem("companyProfile");
         const cachedTimestamp = localStorage.getItem("companyProfileTimestamp");
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000; 
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.companyProfile = JSON.parse(cachedData);

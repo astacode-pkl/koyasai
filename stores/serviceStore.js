@@ -18,12 +18,12 @@ export const useServiceStore = defineStore("service", {
       try {
         const cachedData = localStorage.getItem("Services");
         const cachedTimestamp = localStorage.getItem("ServicesTimestamp");
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000;
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Services = JSON.parse(cachedData);
           this.isFetched = true;         
-          return;
+          return; 
         }
                         
         const config = useRuntimeConfig();

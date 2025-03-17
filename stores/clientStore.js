@@ -18,7 +18,7 @@ export const useClientStore = defineStore('client', {
       try {
         const cachedData = localStorage.getItem('Clients');
         const cachedTimestamp = localStorage.getItem('ClientsTimestamp');
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000;
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Clients = JSON.parse(cachedData);

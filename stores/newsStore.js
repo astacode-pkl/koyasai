@@ -18,7 +18,7 @@ export const useNewsStore = defineStore('news', {
       try {
         const cachedData = localStorage.getItem('News');
         const cachedTimestamp = localStorage.getItem('NewsTimestamp');
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000; 
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.News = JSON.parse(cachedData);

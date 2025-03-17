@@ -18,7 +18,7 @@ export const useCatalogStore = defineStore('catalogs', {
       try {
         const cachedData = localStorage.getItem('catalogs');
         const cachedTimestamp = localStorage.getItem('catalogsTimestamp');
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000; // 1 menit
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.catalogs = JSON.parse(cachedData);

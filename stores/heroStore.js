@@ -18,7 +18,7 @@ export const useHeroStore = defineStore('hero', {
       try {
         const cachedData = localStorage.getItem('Heroes');
         const cachedTimestamp = localStorage.getItem('HeroesTimestamp');
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000; 
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Heroes = JSON.parse(cachedData);

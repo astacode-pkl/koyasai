@@ -18,7 +18,7 @@ export const useGalleryStore = defineStore("gallery", {
       try {
         const cachedData = localStorage.getItem("Galleries");
         const cachedTimestamp = localStorage.getItem("GalleriesTimestamp");
-        const cacheDuration = 5 * 60 * 1000; // 5 menit
+        const cacheDuration = 1 * 60 * 1000;
 
         if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Galleries = JSON.parse(cachedData);
