@@ -6,6 +6,7 @@ export const useComprofStore = defineStore("companyprofile", {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchComprof() {
@@ -16,9 +17,12 @@ export const useComprofStore = defineStore("companyprofile", {
 
       try {
         const cachedData = localStorage.getItem("companyProfile");
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem("companyProfileTimestamp");
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.companyProfile = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;         
           return;
         }
 
@@ -28,6 +32,7 @@ export const useComprofStore = defineStore("companyprofile", {
         const response = await fetch(`${apiBaseUrl}/companyprofile`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -39,7 +44,8 @@ export const useComprofStore = defineStore("companyprofile", {
         if (data.status === 200) {
           this.companyProfile = data.companyprofile;
           this.isFetched = true;
-          localStorage.setItem("companyProfile", JSON.stringify(data.companyprofile));          
+          localStorage.setItem("companyProfile", JSON.stringify(data.companyprofile));
+          localStorage.setItem("companyProfileTimestamp", Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -56,6 +62,7 @@ export const useComprofStore = defineStore("companyprofile", {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem("companyProfile");
+      localStorage.removeItem("companyProfileTimestamp");
     },
   },
 });

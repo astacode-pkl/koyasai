@@ -6,6 +6,7 @@ export const useClientStore = defineStore('client', {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchClient() {
@@ -16,18 +17,22 @@ export const useClientStore = defineStore('client', {
 
       try {
         const cachedData = localStorage.getItem('Clients');
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem('ClientsTimestamp');
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Clients = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;         
           return;
         }
-        
+
         const config = useRuntimeConfig();
         const apiBaseUrl = config.public.apiBaseUrl;
         
         const response = await fetch(`${apiBaseUrl}/clients`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -39,7 +44,8 @@ export const useClientStore = defineStore('client', {
         if (data.status === 200) {
           this.Clients = data.clients;
           this.isFetched = true;
-          localStorage.setItem('Clients', JSON.stringify(data.clients));          
+          localStorage.setItem('Clients', JSON.stringify(data.clients));
+          localStorage.setItem('ClientsTimestamp', Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -56,6 +62,7 @@ export const useClientStore = defineStore('client', {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem('Clients');
+      localStorage.removeItem('ClientsTimestamp');
     },
   },
 });

@@ -6,6 +6,7 @@ export const useHeroStore = defineStore('hero', {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchHero() {
@@ -16,9 +17,12 @@ export const useHeroStore = defineStore('hero', {
 
       try {
         const cachedData = localStorage.getItem('Heroes');
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem('HeroesTimestamp');
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Heroes = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;         
           return;
         }
         
@@ -28,6 +32,7 @@ export const useHeroStore = defineStore('hero', {
         const response = await fetch(`${apiBaseUrl}/heroes`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -39,7 +44,8 @@ export const useHeroStore = defineStore('hero', {
         if (data.status === 200) {
           this.Heroes = data.heroes;
           this.isFetched = true;
-          localStorage.setItem('Heroes', JSON.stringify(data.heroes));          
+          localStorage.setItem('Heroes', JSON.stringify(data.heroes));
+          localStorage.setItem('HeroesTimestamp', Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -56,6 +62,7 @@ export const useHeroStore = defineStore('hero', {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem('Heroes');
+      localStorage.removeItem('HeroesTimestamp');
     },
   },
 });

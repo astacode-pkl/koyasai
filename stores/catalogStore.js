@@ -6,6 +6,7 @@ export const useCatalogStore = defineStore('catalogs', {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchCatalogs() {
@@ -16,7 +17,10 @@ export const useCatalogStore = defineStore('catalogs', {
 
       try {
         const cachedData = localStorage.getItem('catalogs');
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem('catalogsTimestamp');
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.catalogs = JSON.parse(cachedData);
           this.isFetched = true;         
           return;
@@ -28,6 +32,7 @@ export const useCatalogStore = defineStore('catalogs', {
         const response = await fetch(`${apiBaseUrl}/catalogs`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -39,7 +44,8 @@ export const useCatalogStore = defineStore('catalogs', {
         if (data.status === 200) {
           this.catalogs = data.catalogs;
           this.isFetched = true;
-          localStorage.setItem('catalogs', JSON.stringify(data.catalogs));          
+          localStorage.setItem('catalogs', JSON.stringify(data.catalogs));
+          localStorage.setItem('catalogsTimestamp', Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -56,6 +62,7 @@ export const useCatalogStore = defineStore('catalogs', {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem('catalogs');
+      localStorage.removeItem('catalogsTimestamp');
     },
-    },
+  },
 });

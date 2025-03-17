@@ -6,6 +6,7 @@ export const useNewsStore = defineStore('news', {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchNews() {
@@ -16,19 +17,22 @@ export const useNewsStore = defineStore('news', {
 
       try {
         const cachedData = localStorage.getItem('News');
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem('NewsTimestamp');
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.News = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;         
           return;
         }
 
-                
         const config = useRuntimeConfig();
         const apiBaseUrl = config.public.apiBaseUrl;
         
         const response = await fetch(`${apiBaseUrl}/news`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -40,7 +44,8 @@ export const useNewsStore = defineStore('news', {
         if (data.status === 200) {
           this.News = data.news;
           this.isFetched = true;
-          localStorage.setItem('News', JSON.stringify(data.news));          
+          localStorage.setItem('News', JSON.stringify(data.news));
+          localStorage.setItem('NewsTimestamp', Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -57,6 +62,7 @@ export const useNewsStore = defineStore('news', {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem('News');
+      localStorage.removeItem('NewsTimestamp');
     },
   },
 });

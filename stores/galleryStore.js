@@ -6,6 +6,7 @@ export const useGalleryStore = defineStore("gallery", {
     isFetched: false,
     isLoading: false,
     error: null,
+    timestamp: null,
   }),
   actions: {
     async fetchGalleries() {
@@ -16,9 +17,12 @@ export const useGalleryStore = defineStore("gallery", {
 
       try {
         const cachedData = localStorage.getItem("Galleries");
-        if (cachedData) {
+        const cachedTimestamp = localStorage.getItem("GalleriesTimestamp");
+        const cacheDuration = 5 * 60 * 1000; // 5 menit
+
+        if (cachedData && cachedTimestamp && (Date.now() - cachedTimestamp < cacheDuration)) {
           this.Galleries = JSON.parse(cachedData);
-          this.isFetched = true;          
+          this.isFetched = true;         
           return;
         }
 
@@ -28,6 +32,7 @@ export const useGalleryStore = defineStore("gallery", {
         const response = await fetch(`${apiBaseUrl}/galleries`, {
           headers: {
             "ngrok-skip-browser-warning": "true",
+            "Cache-Control": "no-cache",
           },
         });
 
@@ -39,7 +44,8 @@ export const useGalleryStore = defineStore("gallery", {
         if (data.status === 200) {
           this.Galleries = data.galleries;
           this.isFetched = true;
-          localStorage.setItem("Galleries", JSON.stringify(data.galleries));          
+          localStorage.setItem("Galleries", JSON.stringify(data.galleries));
+          localStorage.setItem("GalleriesTimestamp", Date.now());          
         } else {
           throw new Error(data.message || "Error fetching data");
         }
@@ -56,6 +62,7 @@ export const useGalleryStore = defineStore("gallery", {
       this.isFetched = false;
       this.error = null;
       localStorage.removeItem("Galleries");
+      localStorage.removeItem("GalleriesTimestamp");
     },
   },
 });

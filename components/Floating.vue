@@ -1,6 +1,21 @@
+<script setup>
+import { useComprofStore } from "@/stores/comprofStore";
+const comprofStore = useComprofStore();
+
+const getDataComprof = async () => {
+    await comprofStore.fetchComprof();
+};
+
+onMounted(() => {
+  getDataComprof();
+});
+
+const companyProfile = computed(() => comprofStore.companyProfile);
+</script>
+
 <template>
-  <div class="fixed z-40 bottom-8 right-8">
-    <a href="https://astacode.id">
+  <div v-if="companyProfile.length > 0" class="fixed z-40 bottom-8 right-8">
+    <NuxtLink :to="companyProfile[0].whatsapp">
       <svg
         viewBox="0 0 32 32"
         fill="none"
@@ -49,6 +64,6 @@
           </defs>
         </g>
       </svg>
-    </a>
+    </NuxtLink>
   </div>
 </template>
