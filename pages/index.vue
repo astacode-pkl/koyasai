@@ -50,3 +50,13 @@
     <Client />
   </div>
 </template>
+
+<script setup>
+useHead({
+  title: 'Koyasai - Home',
+  meta: [
+    { name: 'description', content: 'Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.' },
+    { name: 'keywords', content: 'sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah' }
+  ]
+})
+</script>

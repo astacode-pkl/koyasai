@@ -1,13 +1,20 @@
 <script setup>
 useHead({
-  title: "About Us",
+  title: "Koyasai - About",
   meta: [
     {
       name: "description",
-      content: "About Us Page",
+      content:
+        "Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.",
+    },
+    {
+      name: "keywords",
+      content:
+        "sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah",
     },
   ],
 });
+
 
 import { useComprofStore } from "@/stores/comprofStore";
 const comprofStore = useComprofStore();

@@ -66,6 +66,13 @@
 </template>
 
 <script setup>
+useHead({
+  title: 'Koyasai - News',
+  meta: [
+    { name: 'description', content: 'Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.' },
+    { name: 'keywords', content: 'sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah' }
+  ]
+})
 import { useRoute } from 'vue-router';
 import { useNewsStore } from "@/stores/newsStore";
 import { ref, computed, onMounted, watchEffect } from "vue";
@@ -74,7 +81,6 @@ const route = useRoute();
 const newsStore = useNewsStore();
 const loading = ref(true);
 
-// Fetch data saat halaman dimuat
 const getDataNews = async () => {
   await newsStore.fetchNews();
   loading.value = false;
@@ -84,14 +90,11 @@ onMounted(() => {
   getDataNews();
 });
 
-// Ambil artikel sesuai ID dari URL
 const article = computed(() => {
     if (newsStore.News.length === 0) return null; 
     return newsStore.News.find(n => n.id === parseInt(route.params.id)) || null;
 });
 
-
-// Update data jika ID di URL berubah
 watchEffect(() => {
   if (!article.value) {
     loading.value = true;

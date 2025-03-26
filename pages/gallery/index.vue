@@ -1,22 +1,3 @@
-<script setup>
-useHead({
-  title: "Gallery",
-  meta: [
-    {
-      name: "description",
-      content: "Gallery Page",
-    },
-  ],
-});
-
-const loading = ref(true);
-
-onMounted(() => {
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
-});
-</script>
 <template>
   <!-- Title -->
   <div
@@ -75,3 +56,29 @@ onMounted(() => {
 
   <Gallery :preview-mode="false" />
 </template>
+
+<script setup>
+useHead({
+  title: "Koyasai - Gallery",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.",
+    },
+    {
+      name: "keywords",
+      content:
+        "sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah",
+    },
+  ],
+});
+
+const loading = ref(true);
+
+onMounted(() => {
+  setTimeout(() => {
+    loading.value = false;
+  }, 2000);
+});
+</script>
