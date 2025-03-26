@@ -6,10 +6,8 @@
     >
       <div class="max-w-2xl">
         <!-- Loading State -->
-        <div v-if="loading" class="text-center text-gray-500">
-          Loading...
-        </div>
-        
+        <div v-if="loading" class="text-center text-gray-500">Loading...</div>
+
         <!-- Artikel Tidak Ditemukan -->
         <div v-else-if="!article" class="text-center text-red-500">
           Artikel tidak ditemukan!
@@ -24,7 +22,6 @@
             <p class="text-lg text-gray-800">
               {{ article.subheadline || "No description available." }}
             </p>
-            
           </div>
 
           <figure>
@@ -42,7 +39,10 @@
         <!-- End Content -->
 
         <!-- Back Button -->
-        <Nuxt-link to="/news" class="flex font-semibold gap-3 mt-5 text-primary">
+        <Nuxt-link
+          to="/news"
+          class="flex font-semibold gap-3 mt-5 text-primary"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -67,13 +67,21 @@
 
 <script setup>
 useHead({
-  title: 'Koyasai - News',
+  title: "Koyasai - News",
   meta: [
-    { name: 'description', content: 'Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.' },
-    { name: 'keywords', content: 'sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah' }
-  ]
-})
-import { useRoute } from 'vue-router';
+    {
+      name: "description",
+      content:
+        "Koyasai menyediakan berbagai sayur dan buah segar berkualitas tinggi. Temukan pilihan terbaik dari produk lokal dan organik, serta berbagai kebutuhan sehari-hari lainnya.",
+    },
+    {
+      name: "keywords",
+      content:
+        "sayur segar, buah segar, belanja online sayur, belanja online buah, produk organik, toko sayur online, Koyasai, sayuran lokal, buah-buahan, kebutuhan sehari-hari, pengiriman sayur, pengiriman buah",
+    },
+  ],
+});
+import { useRoute } from "vue-router";
 import { useNewsStore } from "@/stores/newsStore";
 import { ref, computed, onMounted, watchEffect } from "vue";
 
@@ -91,8 +99,8 @@ onMounted(() => {
 });
 
 const article = computed(() => {
-    if (newsStore.News.length === 0) return null; 
-    return newsStore.News.find(n => n.id === parseInt(route.params.id)) || null;
+  if (newsStore.News.length === 0) return null;
+  return newsStore.News.find((n) => n.id === parseInt(route.params.id)) || null;
 });
 
 watchEffect(() => {
@@ -103,7 +111,6 @@ watchEffect(() => {
 
   watch(article, (newArticle) => {
     console.log("Article Data:", newArticle);
-});
-
+  });
 });
 </script>
