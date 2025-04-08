@@ -1,18 +1,29 @@
+# Stage 1: Build Vue application
 FROM node:20-alpine as build-stage
+
 WORKDIR /app
+
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy project files
 COPY . .
+
+# Build the Vue application
 RUN npm run build
-FROM node:20-alpine
 
-WORKDIR /app
+# Stage 2: Nginx stage to serve the built files
+FROM nginx:alpine
 
-COPY --from=build-stage /app/dist /app/dist
-COPY --from=build-stage /app/package*.json ./
+# Copy built files from build stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-RUN npm ci --only=production
+# Copy custom nginx config (optional)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 8080
+EXPOSE 80
 
-CMD ["npm", "run", "serve"]
+CMD ["nginx", "-g", "daemon off;"]
