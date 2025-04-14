@@ -87,20 +87,25 @@ import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useHeroStore } from "@/stores/heroStore";
 
 const heroStore = useHeroStore();
+const Heroes = computed(() => heroStore.Heroes);
 
 const getDataHeroes = async () => {
   await heroStore.fetchHero();
-  await nextTick(); // Pastikan Vue merender ulang setelah data diambil
+  await nextTick();
 };
 
-// Computed untuk mengambil data dari store
-const Heroes = computed(() => heroStore.Heroes);
+const reinitCarousel = () => {
+  if (window.HSCarousel) {
+    const carousels = document.querySelectorAll(".hs-carousel");
+    carousels.forEach((el) => new window.HSCarousel(el));
+  }
+};
 
-// Memantau perubahan data Heroes dan memperbarui slider jika sudah ada data
-watch(Heroes, (newHeroes) => {
+watch(Heroes, async (newHeroes) => {
   if (newHeroes.length > 0) {
+    await nextTick();
     setTimeout(() => {
-      document.querySelector(".hs-carousel-body")?.classList.remove("opacity-0");
+      reinitCarousel();
     }, 100);
   }
 });
