@@ -1,6 +1,9 @@
 <template>
   <div>
     <!-- Slider -->
+     <div v-if="Heroes.length <= 0" class="bg-gray-100 h-screen w-full">
+      <h1 class="hidden">skeleton</h1>
+     </div>
     <div
       v-if="Heroes.length > 0"
       data-hs-carousel='{
